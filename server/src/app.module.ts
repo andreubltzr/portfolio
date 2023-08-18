@@ -14,7 +14,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           'DB_USER',
         )}:${configService.get<string>(
           'DB_PASSWORD',
-        )}@${configService.get<string>('DB_HOST')}/`,
+        )}@${configService.get<string>('DB_HOST')}/${configService.get<string>(
+          'DB_NAME',
+        )}`,
       }),
       inject: [ConfigService],
     }),
