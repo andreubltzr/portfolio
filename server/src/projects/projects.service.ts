@@ -1,9 +1,21 @@
 import { Injectable } from '@nestjs/common';
+import { Project } from './schemas/project.schema';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class ProjectsService {
-  findAll() {
-    return `This action returns all projects`;
+  constructor(
+    @InjectModel(Project.name) private projectModel: Model<Project>,
+  ) {}
+
+  async findAll() {
+    try {
+      const projects = await this.projectModel.find();
+      return projects;
+    } catch (error) {
+      throw error;
+    }
   }
 
   findOne(id: number) {
